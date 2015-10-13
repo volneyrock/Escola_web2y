@@ -16,7 +16,6 @@ def index():
     if you need a simple wiki simply replace the two lines below with:
     return auth.wiki()
     """
-    response.flash = T("Hello World")
     return dict(message=T('Welcome to web2py!'))
 
 
@@ -57,4 +56,41 @@ def call():
     """
     return service()
 
+def contato():
+    form = SQLFORM.factory(
+        Field('nome', requires=IS_NOT_EMPTY(), label='Nome'),
+        Field('email', requires=IS_EMAIL()),
+        Field('mensagem', 'text', requires=IS_NOT_EMPTY(), label='Mesagem')
+        )
+    if form.process().accepted:
+        session.flash = 'Mensagem enviada'
+        redirect(URL('index'))
+    elif form.errors:
+        response.flash = 'Ops, algo errado no formulário'
+    else:
+        response.flash = 'Preencha o formulário'
+    return dict(form = form)
 
+def inserir_notas():
+    form = crud.create(db.notas_)
+    return dict(form=form)
+
+def novo_arquivo():
+    form = crud.create(db.biblioteca_)
+    return dict(form=form)
+
+def nova_mensagem():
+    form = crud.create(db.forum_)
+    return dict(form=form)
+
+def forum():
+    form = SQLFORM.grid(db.forum_)
+    return dict(form=form)
+
+def notas():
+    form = SQLFORM.grid(db.notas_)
+    return dict(form=form)
+
+def biblioteca():
+    form = SQLFORM.grid(db.biblioteca_)
+    return dict(form=form)

@@ -4,12 +4,12 @@ from datetime import datetime
 notas = db.define_table('notas_',
 	Field('nota', 'float', default = 0, label = 'Nota'),
 	Field('aluno', 'reference auth_user', notnull = True, label = 'Aluno'),
-	Field('professor', 'reference auth_user', ondelete = "SET NULL", label = 'Professor'),
+	Field('professor', 'reference auth_user', ondelete = "NO ACTION", label = 'Professor'),
 	)
 
 biblioteca = db.define_table('biblioteca_',
 	Field('arquivo', 'upload', notnull = True, label = 'Arquivo'),
-	Field('professor', 'reference auth_user', ondelete = 'SET NULL', label = 'Professor')
+	Field('professor', 'reference auth_user', ondelete = 'NO ACTION', label = 'Professor')
 	)
 
 forum = db.define_table('forum_',

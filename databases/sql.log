@@ -92,3 +92,5 @@ CREATE TABLE comentarios_(
     modified_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  
 );
 success!
+success!
+success!
