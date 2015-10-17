@@ -63,6 +63,12 @@ def contato():
         Field('mensagem', 'text', requires=IS_NOT_EMPTY(), label='Mesagem')
         )
     if form.process().accepted:
+        mail.send(
+            to=['volneyrock@gmail.com'],
+            subject='Novo email de %s' %form.vars.nome,
+            reply_to=form.vars.email,
+            message=form.vars.mensagem,
+            )
         session.flash = 'Mensagem enviada'
         redirect(URL('index'))
     elif form.errors:
@@ -71,26 +77,42 @@ def contato():
         response.flash = 'Preencha o formulário'
     return dict(form = form)
 
+@auth.requires_membership('professor')
 def inserir_notas():
-    form = crud.create(db.notas_)
+    form = crud.create(Notas)
     return dict(form=form)
 
+@auth.requires_membership('professor')
 def novo_arquivo():
-    form = crud.create(db.biblioteca_)
+    form = crud.create(Biblioteca)
     return dict(form=form)
 
+@auth.requires_login()
 def nova_mensagem():
-    form = crud.create(db.forum_)
+    form = crud.create(Forum)
     return dict(form=form)
 
 def forum():
-    form = SQLFORM.grid(db.forum_)
-    return dict(form=form)
+    response.title += " - Fórum"
+    posts = db(Forum.id>0).select() 
+    return dict(posts=posts)
 
+
+def ver_mensagem():
+    id_mensagem = request.args(0, cast = int)
+    mensagem = db(db.forum.id == id_mensagem).select().first()
+
+    Comentarios.postagem.default = id_mensagem
+    Comentarios.postagem.writable = Comentarios.postagem.readable = False
+    form = crud.create(Comentarios)
+    coments = db(Comentarios.postagem == id_mensagem).select()
+    return dict(mensagem=mensagem, form=form, coments=coments)
+    
+@auth.requires_login()
 def notas():
-    form = SQLFORM.grid(db.notas_)
+    form = SQLFORM.grid(Notas)
     return dict(form=form)
 
 def biblioteca():
-    form = SQLFORM.grid(db.biblioteca_)
+    form = SQLFORM.grid(Biblioteca)
     return dict(form=form)

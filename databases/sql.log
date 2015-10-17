@@ -94,3 +94,45 @@ CREATE TABLE comentarios_(
 success!
 success!
 success!
+timestamp: 2015-10-13T17:13:04.211157
+CREATE TABLE notas(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nota DOUBLE,
+    aluno INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  NOT NULL ,
+    professor INTEGER REFERENCES auth_user (id) ON DELETE NO ACTION  
+);
+success!
+timestamp: 2015-10-13T17:13:04.300106
+CREATE TABLE biblioteca(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    arquivo CHAR(512) NOT NULL,
+    professor INTEGER REFERENCES auth_user (id) ON DELETE NO ACTION  
+);
+success!
+timestamp: 2015-10-13T17:13:04.365093
+CREATE TABLE forum(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    titulo CHAR(512) NOT NULL,
+    mensagem TEXT NOT NULL,
+    is_active CHAR(1),
+    created_on TIMESTAMP,
+    created_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ,
+    modified_on TIMESTAMP,
+    modified_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  
+);
+success!
+timestamp: 2015-10-13T17:13:04.429267
+CREATE TABLE comentarios(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    mensagem TEXT NOT NULL,
+    postagem INTEGER REFERENCES forum (id) ON DELETE CASCADE  ,
+    is_active CHAR(1),
+    created_on TIMESTAMP,
+    created_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ,
+    modified_on TIMESTAMP,
+    modified_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  
+);
+success!
+timestamp: 2015-10-16T20:03:10.203403
+ALTER TABLE auth_user ADD avatar CHAR(512);
+success!

@@ -1,0 +1,15 @@
+{{extend 'layout.html'}}
+<h1>{{=mensagem.titulo}}</h1>
+<div class='well well-large'>
+	<h3>{{=mensagem.mensagem}}</h3>
+</div>
+{{for c in coments:}}
+	<div class="well well-small">
+		{{=c.mensagem}}
+	</div>
+{{pass}}
+
+
+<h2>Responder</h2>
+{{=form}}
+

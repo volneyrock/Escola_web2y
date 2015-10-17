@@ -1,0 +1,21 @@
+{{extend 'layout.html'}}
+<h1>Bem vindo ao Fórum</h1>
+
+<table class = 'table'>
+	<thead>
+		<tr>
+			<th>Título</th>
+			<th>Criado por</th>
+			<th>Criado em</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{for m in posts:}}
+		<tr>
+			<td> <a href="{{=URL('ver_mensagem', args=m.id)}}">{{=m.titulo}}</td>
+			<td>{{=m.created_by}}</td>
+			<td>{{=m.created_on}}</td>
+		</tr>
+		{{pass}}
+	</tbody>
+</table>

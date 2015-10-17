@@ -32,6 +32,7 @@ response.menu = [
     (T('Forum'), False, URL('default', 'forum'), []),
     (T('Notas'), False, URL('default', 'notas'), []),
     (T('Biblioteca'), False, URL('default', 'biblioteca'), []),
+    (T('Contato'), False, URL('default', 'contato'), []),
 ]
 
 DEVELOPMENT_MENU = False
