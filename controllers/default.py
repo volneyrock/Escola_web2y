@@ -106,7 +106,7 @@ def ver_mensagem():
     Comentarios.postagem.writable = Comentarios.postagem.readable = False
     form = crud.create(Comentarios)
     coments = db(Comentarios.postagem == id_mensagem).select()
-    user = db(db.auth_user.id == Comentarios.created_by).select(db.auth_user.ALL).first()['avatar']
+    user = db(db.auth_user.id == Comentarios.created_by).select(db.auth_user.ALL).first()['avatar']## pesquisa a imagem do usuário que fez o comentário
     return dict(mensagem=mensagem, form=form, coments=coments, user = user)
     
 @auth.requires_login()
