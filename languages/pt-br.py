@@ -73,6 +73,7 @@
 'db': 'bd',
 'DB Model': 'Modelo BD',
 'Delete': 'Delete',
+'delete': 'delete',
 'Delete:': 'Apagar:',
 'Demo': 'Demo',
 'Deployment Recipes': 'Receitas de deploy',

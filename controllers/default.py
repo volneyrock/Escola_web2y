@@ -97,7 +97,7 @@ def forum():
     posts = db(Forum.id>0).select() 
     return dict(posts=posts)
 
-
+@auth.requires_login()
 def ver_mensagem():
     id_mensagem = request.args(0, cast = int)
     mensagem = db(db.forum.id == id_mensagem).select().first()
@@ -106,7 +106,8 @@ def ver_mensagem():
     Comentarios.postagem.writable = Comentarios.postagem.readable = False
     form = crud.create(Comentarios)
     coments = db(Comentarios.postagem == id_mensagem).select()
-    return dict(mensagem=mensagem, form=form, coments=coments)
+    user = db(db.auth_user.id == Comentarios.created_by).select(db.auth_user.ALL).first()['avatar']
+    return dict(mensagem=mensagem, form=form, coments=coments, user = user)
     
 @auth.requires_login()
 def notas():
