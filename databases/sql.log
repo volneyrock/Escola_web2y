@@ -1,4 +1,4 @@
-timestamp: 2015-10-07T14:31:40.029401
+timestamp: 2015-10-25T17:57:47.777467
 CREATE TABLE auth_user(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     first_name CHAR(128),
@@ -7,24 +7,25 @@ CREATE TABLE auth_user(
     password CHAR(512),
     registration_key CHAR(512),
     reset_password_key CHAR(512),
-    registration_id CHAR(512)
+    registration_id CHAR(512),
+    avatar CHAR(512)
 );
 success!
-timestamp: 2015-10-07T14:31:40.491580
+timestamp: 2015-10-25T17:57:48.678799
 CREATE TABLE auth_group(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     role CHAR(512),
     description TEXT
 );
 success!
-timestamp: 2015-10-07T14:31:41.046168
+timestamp: 2015-10-25T17:57:51.403182
 CREATE TABLE auth_membership(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ,
     group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE  
 );
 success!
-timestamp: 2015-10-07T14:31:41.600569
+timestamp: 2015-10-25T17:57:51.982523
 CREATE TABLE auth_permission(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE  ,
@@ -33,7 +34,7 @@ CREATE TABLE auth_permission(
     record_id INTEGER
 );
 success!
-timestamp: 2015-10-07T14:31:42.364603
+timestamp: 2015-10-25T17:58:16.741714
 CREATE TABLE auth_event(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     time_stamp TIMESTAMP,
@@ -43,7 +44,7 @@ CREATE TABLE auth_event(
     description TEXT
 );
 success!
-timestamp: 2015-10-07T14:31:42.836305
+timestamp: 2015-10-25T17:59:01.200281
 CREATE TABLE auth_cas(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ,
@@ -53,48 +54,7 @@ CREATE TABLE auth_cas(
     renew CHAR(1)
 );
 success!
-timestamp: 2015-10-07T14:31:43.518212
-CREATE TABLE notas_(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    nota DOUBLE,
-    aluno INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  NOT NULL ,
-    professor INTEGER REFERENCES auth_user (id) ON DELETE SET NULL  
-);
-success!
-timestamp: 2015-10-07T14:31:44.262463
-CREATE TABLE biblioteca_(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    arquivo CHAR(512) NOT NULL,
-    professor INTEGER REFERENCES auth_user (id) ON DELETE SET NULL  
-);
-success!
-timestamp: 2015-10-07T14:31:45.250366
-CREATE TABLE forum_(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    titulo CHAR(512) NOT NULL,
-    mensagem TEXT NOT NULL,
-    is_active CHAR(1),
-    created_on TIMESTAMP,
-    created_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ,
-    modified_on TIMESTAMP,
-    modified_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  
-);
-success!
-timestamp: 2015-10-07T14:31:45.847109
-CREATE TABLE comentarios_(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    mensagem TEXT NOT NULL,
-    postagem INTEGER REFERENCES forum_ (id) ON DELETE CASCADE  ,
-    is_active CHAR(1),
-    created_on TIMESTAMP,
-    created_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ,
-    modified_on TIMESTAMP,
-    modified_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  
-);
-success!
-success!
-success!
-timestamp: 2015-10-13T17:13:04.211157
+timestamp: 2015-10-25T17:59:02.869482
 CREATE TABLE notas(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nota DOUBLE,
@@ -102,14 +62,15 @@ CREATE TABLE notas(
     professor INTEGER REFERENCES auth_user (id) ON DELETE NO ACTION  
 );
 success!
-timestamp: 2015-10-13T17:13:04.300106
+timestamp: 2015-10-25T17:59:02.938754
 CREATE TABLE biblioteca(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     arquivo CHAR(512) NOT NULL,
-    professor INTEGER REFERENCES auth_user (id) ON DELETE NO ACTION  
+    professor INTEGER REFERENCES auth_user (id) ON DELETE NO ACTION  ,
+    titulo CHAR(512) NOT NULL
 );
 success!
-timestamp: 2015-10-13T17:13:04.365093
+timestamp: 2015-10-25T17:59:03.002275
 CREATE TABLE forum(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     titulo CHAR(512) NOT NULL,
@@ -121,7 +82,7 @@ CREATE TABLE forum(
     modified_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  
 );
 success!
-timestamp: 2015-10-13T17:13:04.429267
+timestamp: 2015-10-25T17:59:03.065522
 CREATE TABLE comentarios(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     mensagem TEXT NOT NULL,
@@ -132,7 +93,4 @@ CREATE TABLE comentarios(
     modified_on TIMESTAMP,
     modified_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  
 );
-success!
-timestamp: 2015-10-16T20:03:10.203403
-ALTER TABLE auth_user ADD avatar CHAR(512);
 success!

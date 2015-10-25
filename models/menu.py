@@ -26,9 +26,6 @@ response.google_analytics_id = None
 
 response.menu = [
     (T('Home'), False, URL('default', 'index'), []),
-    (T('Inserir Notas'), False, URL('default', 'inserir_notas'), []),
-    (T('Enviar arquivo'), False, URL('default', 'novo_arquivo'), []),
-    (T('Novo Post'), False, URL('default', 'nova_mensagem'), []),
     (T('Forum'), False, URL('default', 'forum'), []),
     (T('Notas'), False, URL('default', 'notas'), []),
     (T('Biblioteca'), False, URL('default', 'biblioteca'), []),

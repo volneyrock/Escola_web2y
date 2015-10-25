@@ -9,7 +9,8 @@ Notas = db.define_table('notas',
 
 Biblioteca = db.define_table('biblioteca',
 	Field('arquivo', 'upload', notnull = True, label = 'Arquivo'),
-	Field('professor', 'reference auth_user', ondelete = 'NO ACTION', label = 'Professor')
+	Field('professor', 'reference auth_user', ondelete = 'NO ACTION', label = 'Professor'),
+	Field('titulo', 'string', notnull = True, label = 'Título'),
 	)
 
 Forum = db.define_table('forum',

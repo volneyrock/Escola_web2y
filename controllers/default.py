@@ -57,6 +57,7 @@ def call():
     return service()
 
 def contato():
+    response.subtitle += " -> Contato"
     form = SQLFORM.factory(
         Field('nome', requires=IS_NOT_EMPTY(), label='Nome'),
         Field('email', requires=IS_EMAIL()),
@@ -79,11 +80,13 @@ def contato():
 
 @auth.requires_membership('professor')
 def inserir_notas():
+    response.subtitle += " -> Inserir notas"
     form = crud.create(Notas)
     return dict(form=form)
 
 @auth.requires_membership('professor')
 def novo_arquivo():
+    response.subtitle += " -> Enviar arquivos"
     form = crud.create(Biblioteca)
     return dict(form=form)
 
@@ -93,7 +96,7 @@ def nova_mensagem():
     return dict(form=form)
 
 def forum():
-    response.title += " - Fórum"
+    response.subtitle += " -> Fórum"
     posts = db(Forum.id>0).select() 
     return dict(posts=posts)
 
@@ -106,14 +109,19 @@ def ver_mensagem():
     Comentarios.postagem.writable = Comentarios.postagem.readable = False
     form = crud.create(Comentarios)
     coments = db(Comentarios.postagem == id_mensagem).select()
-    user = db(db.auth_user.id == Comentarios.created_by).select(db.auth_user.ALL).first()['avatar']## pesquisa a imagem do usuário que fez o comentário
-    return dict(mensagem=mensagem, form=form, coments=coments, user = user)
+    return dict(mensagem=mensagem, form=form, coments=coments)
     
 @auth.requires_login()
 def notas():
-    form = SQLFORM.grid(Notas)
-    return dict(form=form)
+    response.subtitle += " -> Notas"
+    if request.post_vars.busca:
+        print request.post_vars
+        #notas = db(Notas.)
+    else:
+        notas = db(Notas.id > 0).select()
+    return dict(notas=notas)
 
 def biblioteca():
-    form = SQLFORM.grid(Biblioteca)
-    return dict(form=form)
+    response.subtitle += " -> Biblioteca"
+    arquivos = db(Biblioteca.id > 0).select()
+    return dict(arquivos=arquivos)
